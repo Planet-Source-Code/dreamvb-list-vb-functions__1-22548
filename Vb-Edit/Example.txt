@@ -1,0 +1,85 @@
+Function DrawBar(Bar As PictureBox)
+
+Dim X, Y, Red, Blue, Green As Integer
+
+X = Bar.ScaleWidth
+Y = Bar.ScaleHeight
+
+Red = 255
+Blue = 255
+Green = 255
+   
+Do Until Red = 1
+    X = X - Bar.Width / 255
+    Red = Red - 1
+    Bar.Line (0, 0)-(X, Y), RGB(Red, Red, Red), BF
+Loop
+
+End Function
+
+Function CenterForm(frm As Form)
+    frm.Top = (Screen.Height - frm.Height) / 2
+    frm.Left = (Screen.Width - frm.Width) / 2
+
+End Function
+
+Function CheckFilehere(Filename As String) As Boolean
+ If Dir(Filename) = "" Then CheckFilehere = False Else CheckFilehere = True
+ 
+End Function
+
+Function OpenFile(Ttype As String) As String
+ Dim ofn As OPENFILENAME
+    ofn.lStructSize = Len(ofn)
+    ofn.hWndOwner = Form1.hWnd
+    ofn.hInstance = App.hInstance
+    ofn.lpstrFilter = Ttype
+        ofn.lpstrFile = Space$(254)
+        ofn.nMaxFile = 255
+        ofn.lpstrFileTitle = Space$(254)
+        ofn.nMaxFileTitle = 255
+        ofn.lpstrInitialDir = App.Path & "\BackGrounds"
+        ofn.lpstrTitle = "Open Picture"
+        ofn.Flags = 0
+        
+        A = GetOpenFileName(ofn)
+        If (A) Then
+                OpenFile = Trim$(ofn.lpstrFile)
+        End If
+        
+ End Function
+
+Function MyTest()
+    MsgBox "My Function 1"
+    
+End Function
+
+Function AnotherTest()
+    MsgBox "My Function 2"
+    
+End Function
+
+
+Function RemoveChar(StrString As String, SChar As String) As String
+    RemoveChar = Replace(StrString, Chr(9), Chr(32))
+    
+End Function
+
+Function FindEndFunc(S As String) As Integer
+    X = InStr(S, "End Function")
+    FindEndFunc = X
+    
+End Function
+
+Function FindFunc(S As String) As Integer
+    X = InStr(S, "Function")
+    FindFunc = X
+    
+End Function
+
+Function FindBrace(S As String) As Integer
+    X = InStr(S, "(")
+    If X = 0 Then Exit Function
+    FindBrace = X
+    
+End Function
